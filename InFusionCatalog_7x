@@ -1,0 +1,14 @@
+[
+   {
+      "name": "ANZ Lab (3.0.0)",
+      "version": "1.0.0",
+      "objective": "",
+      "description": "",
+      "useCases": "",
+      "requirements": "",
+      "labels": [
+         "HCO 7.x"
+      ],
+      "path": "https://wwwin-github.cisco.com/raw/APJ-GSP-ADT/YAP-Zoo/master/cnc6.0/cnc6.0_lifecycle_demo.json"
+   }
+]

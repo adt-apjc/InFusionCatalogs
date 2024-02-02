@@ -1,0 +1,2025 @@
+{
+   "name": "APJC Examples",
+   "layouts": [
+      {
+         "settings": {
+            "num_days_to_generate_back": 0,
+            "num_days_to_generate_forward": 0,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false,
+            "initial_zoom": null
+         },
+         "name": "ANZ_Lab (3.0.0)",
+         "description": {
+            "headerSummary": "ANZ Hackathon May 2022",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/1-network.png",
+                  "description": "Reference topology used in this example"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/2-highlevel.png",
+                  "description": "SP reference network, with RSVP_TE, SRTE LSPs and L3VPN  crossing domains (including ZRP+ core)"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/3-redundant-paths.png",
+                  "description": "Path redundacy between sites to show how HCO's handling of these scenarios"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/4-full-mesh-rsvpte-srte.png",
+                  "description": "RSVP_TE and SRTE full mesh (plus tactical LSP) to scale large networks"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/5-cross-domain-RSVP-SRTE.png",
+                  "description": "Example of a cross domain LSP traversing access and multiple cores"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/6-LSP-path-access-core100.png",
+                  "description": "LSP path transition from access to IP core"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/7-LSP-path-core100-core400.png",
+                  "description": "LSP path transition from traditional IP over DWDM to ZR+ over DWM core"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/8-LSP-path-core400-access.png",
+                  "description": "LSP path transitionDWDM to ZR+ over DWM core to access"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/hackathon/9-L3-VPN-rsvp-SRTE.png",
+                  "description": "L3VPM over RSVP_TE and SRTE LSPs"
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": null
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": null
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            },
+            {
+               "name": "PER",
+               "lat": -31.9523123,
+               "lng": 115.861309,
+               "addr": "Perth"
+            },
+            {
+               "name": "DAR",
+               "lat": -12.4637333,
+               "lng": 130.8444446,
+               "addr": "Darwin"
+            },
+            {
+               "name": "ALI",
+               "lat": -23.698042,
+               "lng": 133.8807471,
+               "addr": "Alice Spring"
+            },
+            {
+               "name": "EDEN",
+               "lat": -37.0136574,
+               "lng": 149.9095179,
+               "addr": "Eden"
+            },
+            {
+               "name": "BRO",
+               "lat": -31.9595859,
+               "lng": 141.4608138,
+               "addr": "Broken Hill"
+            },
+            {
+               "name": "MIL",
+               "lat": -34.2068859,
+               "lng": 142.1366852,
+               "addr": "Mildura"
+            },
+            {
+               "name": "DUB",
+               "lat": -32.2443908,
+               "lng": 148.614418,
+               "addr": "dubbo"
+            },
+            {
+               "name": "POR",
+               "lat": -32.4935661,
+               "lng": 137.7743496,
+               "addr": "Port Augusta"
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1EDEN01",
+               "site": "EDEN",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1SYD02",
+               "site": "SYD",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1MEL02",
+               "site": "MEL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1ADE02",
+               "site": "ADE",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1PER02",
+               "site": "PER",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1DAR02",
+               "site": "DAR",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1ALI02",
+               "site": "ALI",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1BRO02",
+               "site": "BRO",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1DUB02",
+               "site": "DUB",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1WAG02",
+               "site": "WAG",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1POR02",
+               "site": "POR",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1DUB01",
+               "site": "DUB",
+               "vendor": "Cisco"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "CR2.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "ER1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "CR2.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "ER1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "CR2.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "ER1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "NCS-5502-SE",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "ER1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.PER",
+               "site": "PER",
+               "vendor": "Cisco",
+               "deviceType": "NCS-5502-SE",
+               "is_core": true,
+               "is_zr": false
+            },
+            {
+               "name": "ER1.PER",
+               "site": "PER",
+               "vendor": "Huawei",
+               "deviceType": "NE40E-X3",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.DAR",
+               "site": "DAR",
+               "vendor": "Cisco",
+               "deviceType": "NCS-5502-SE",
+               "is_core": true,
+               "is_zr": false
+            },
+            {
+               "name": "ER1.DAR",
+               "site": "DAR",
+               "vendor": "Juniper",
+               "deviceType": "MX960",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR2.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "NCS-5502-SE",
+               "is_core": true,
+               "is_zr": false
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_cisco",
+               "description": "",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1EDEN01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1EDEN01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1DUB01"
+                  },
+                  {
+                     "source": "SD1DUB01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1DUB01",
+                     "destination": "SD1BRI01"
+                  }
+               ]
+            },
+            {
+               "name": "topo_wdm_ciena",
+               "description": "",
+               "spans": [
+                  {
+                     "source": "SD1MEL02",
+                     "destination": "SD1ADE02"
+                  },
+                  {
+                     "source": "SD1PER02",
+                     "destination": "SD1POR02"
+                  },
+                  {
+                     "source": "SD1PER02",
+                     "destination": "SD1ALI02"
+                  },
+                  {
+                     "source": "SD1DAR02",
+                     "destination": "SD1ALI02"
+                  },
+                  {
+                     "source": "SD1ALI02",
+                     "destination": "SD1ADE02"
+                  },
+                  {
+                     "source": "SD1ADE02",
+                     "destination": "SD1POR02"
+                  },
+                  {
+                     "source": "SD1BRO02",
+                     "destination": "SD1DUB02"
+                  },
+                  {
+                     "source": "SD1SYD02",
+                     "destination": "SD1DUB02"
+                  },
+                  {
+                     "source": "SD1MEL02",
+                     "destination": "SD1BRO02"
+                  },
+                  {
+                     "source": "SD1WAG02",
+                     "destination": "SD1BRO02"
+                  },
+                  {
+                     "source": "SD1SYD02",
+                     "destination": "SD1WAG02"
+                  },
+                  {
+                     "source": "SD1WAG02",
+                     "destination": "SD1DUB02"
+                  },
+                  {
+                     "source": "SD1POR02",
+                     "destination": "SD1BRO02"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1MEL02"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_core_ZRP",
+               "description": "Core ZRP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": ["SD1WAG01"],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": ["SD1EDEN01"],
+                        "excludes": ["SD1WAG01"]
+                     },
+                     "source": "CR2.MEL",
+                     "destination": "CR2.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR2.MEL",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR2.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": ["SD1DUB01"],
+                        "excludes": []
+                     },
+                     "source": "CR2.SYD",
+                     "destination": "CR2.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            },
+            {
+               "name": "topo_core_regional",
+               "description": "Core Topology (no ZRP)",
+               "is_zr": false,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.PER",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.DAR",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.PER",
+                     "destination": "CR1.DAR",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": ["SD1BRO02"],
+                        "excludes": []
+                     },
+                     "source": "CR2.MEL",
+                     "destination": "CR2.ADE",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR2.ADE",
+                     "path_topologies": [],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  }
+               ]
+            },
+            {
+               "name": "topo_access",
+               "description": "Access topology",
+               "is_zr": false,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.MEL",
+                     "destination": "CR1.MEL",
+                     "path_topologies": [],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.SYD",
+                     "destination": "CR1.SYD",
+                     "path_topologies": [],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.BRI",
+                     "destination": "CR1.BRI",
+                     "path_topologies": [],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.ADE",
+                     "destination": "CR1.ADE",
+                     "path_topologies": [],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.PER",
+                     "destination": "CR1.PER",
+                     "path_topologies": [],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.DAR",
+                     "destination": "CR1.DAR",
+                     "path_topologies": [],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.MEL",
+                     "destination": "CR2.MEL",
+                     "path_topologies": [],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.SYD",
+                     "destination": "CR2.SYD",
+                     "path_topologies": [],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "ER1.BRI",
+                     "destination": "CR2.BRI",
+                     "path_topologies": [],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [],
+         "serviceGroup": [
+            {
+               "name": "srv1_RSVP_L3VPN",
+               "description": "Validating RSVP_TE LSPs and L3VPN",
+               "rsvp_te": [
+                  {
+                     "name": "RSVP",
+                     "description": "",
+                     "full_meshed": true,
+                     "bandwidth_reservation_mbps": 10,
+                     "setup_priority": 7,
+                     "holding_priority": 0,
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "customer_name": "Sony",
+                     "customer_details": "ADT Ltd."
+                  }
+               ],
+               "sr_policies": [],
+               "l3vpns": [
+                  {
+                     "name": "Pepsi",
+                     "customer_name": "Sony",
+                     "customer_details": "ADT Ltd.",
+                     "service_topology": "ANY_TO_ANY",
+                     "underlay_type": "RSVP_TE",
+                     "route_distinguisher": 65001,
+                     "route_target": 66001,
+                     "endpoints": [
+                        {
+                           "device_name": "ER1.MEL",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1000,
+                           "ip_address": "10.10.10.1/24"
+                        },
+                        {
+                           "device_name": "ER1.SYD",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1001,
+                           "ip_address": "10.10.20.1/24"
+                        },
+                        {
+                           "device_name": "ER1.BRI",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1002,
+                           "ip_address": "10.10.30.1/24"
+                        }
+                     ]
+                  }
+               ]
+            },
+            {
+               "name": "srv2_SRTE_L3VPN",
+               "description": "Validating the creation of full mesh SRTE, some tactical SRTE and L3VPN",
+               "rsvp_te": [],
+               "sr_policies": [
+                  {
+                     "name": "SRTE_mesh",
+                     "description": "Min IGP path policy",
+                     "full_meshed": true,
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24001,
+                     "color": 1000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 1 BRI to MEL",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.MEL",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25101,
+                     "color": 20000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 1 MEL to BRI",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.MEL",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25101,
+                     "color": 20000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  }
+               ],
+               "l3vpns": [
+                  {
+                     "name": "Cola",
+                     "customer_name": "Cola",
+                     "customer_details": "ADT Ltd.",
+                     "service_topology": "ANY_TO_ANY",
+                     "underlay_type": "SEGMENT_ROUTING",
+                     "route_distinguisher": 65002,
+                     "route_target": 66002,
+                     "endpoints": [
+                        {
+                           "device_name": "ER1.MEL",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 2000,
+                           "ip_address": "10.20.10.1/24"
+                        },
+                        {
+                           "device_name": "ER1.BRI",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 2001,
+                           "ip_address": "10.20.20.1/24"
+                        },
+                        {
+                           "device_name": "ER1.PER",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 2002,
+                           "ip_address": "10.20.30.1/24"
+                        },
+                        {
+                           "device_name": "ER1.DAR",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 2003,
+                           "ip_address": "10.20.40.1/24"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": 16,
+            "initial_lng": 101,
+            "initial_zoom": 5,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": true
+         },
+         "name": "Thailand_Example (2.0.0)",
+         "sites": [
+            {
+               "name": "bkk",
+               "lat": 13.7563309,
+               "lng": 100.5017651,
+               "addr": "bangkok"
+            },
+            {
+               "name": "cnx",
+               "lat": 18.7883439,
+               "lng": 98.9853007,
+               "addr": "changmai"
+            },
+            {
+               "name": "urt",
+               "lat": 9.13419489,
+               "lng": 99.3334198,
+               "addr": "surat thani"
+            },
+            {
+               "name": "phs",
+               "lat": 16.8211238,
+               "lng": 100.2658516,
+               "addr": "phitsanurok"
+            },
+            {
+               "name": "kkc",
+               "lat": 16.440462346208278,
+               "lng": 102.82284827441617,
+               "addr": "Khon Kaen"
+            },
+            {
+               "name": "pkk",
+               "lat": 12.5683747,
+               "lng": 99.9576888,
+               "addr": "HuaHin"
+            },
+            {
+               "name": "chn",
+               "lat": 10.4930496,
+               "lng": 99.18001989999999,
+               "addr": "chumphon"
+            },
+            {
+               "name": "nks",
+               "lat": 15.6987382,
+               "lng": 100.11996,
+               "addr": "Nakhon Sawan"
+            },
+            {
+               "name": "pcb",
+               "lat": 16.301669,
+               "lng": 101.1192804,
+               "addr": "Phetchabun"
+            },
+            {
+               "name": "cnb",
+               "lat": 13.3611431,
+               "lng": 100.9846717,
+               "addr": "Chon Buri"
+            },
+            {
+               "name": "pkt",
+               "lat": 7.8804479,
+               "lng": 98.3922504,
+               "addr": "Phuket"
+            },
+            {
+               "name": "nkr",
+               "lat": 14.9738493,
+               "lng": 102.083652,
+               "addr": "Nakhon Ratchasima"
+            },
+            {
+               "name": "ubn",
+               "lat": 15.2448453,
+               "lng": 104.8472995,
+               "addr": "Ubon Ratchathani"
+            }
+         ],
+         "roadms": [
+            {
+               "name": "dw.cnx",
+               "site": "cnx",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.phs",
+               "site": "phs",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.bkk",
+               "site": "bkk",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.kkc",
+               "site": "kkc",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.urt.cisco",
+               "site": "urt",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "dw.pkk.cisco",
+               "site": "pkk",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "dw.chn.cisco",
+               "site": "chn",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "dw.nks",
+               "site": "nks",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.pcb",
+               "site": "pcb",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.cnb",
+               "site": "cnb",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.nkr",
+               "site": "nkr",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "dw.ubn",
+               "site": "ubn",
+               "vendor": "Ciena"
+            }
+         ],
+         "otnDevices": [
+            {
+               "name": "o.phs",
+               "site": "phs",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "o.bkk",
+               "site": "bkk",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "o.kkc",
+               "site": "kkc",
+               "vendor": "Ciena"
+            }
+         ],
+         "routers": [
+            {
+               "name": "er.cnx",
+               "site": "cnx",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "er.bkk",
+               "site": "bkk",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "er.kkc",
+               "site": "kkc",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "er.phs",
+               "site": "phs",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "er.urt.zr",
+               "site": "urt",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "er.bkk.zr",
+               "site": "bkk",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "er.cnb.zr",
+               "site": "cnb",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "er.pkt.zr",
+               "site": "pkt",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "er.ubn",
+               "site": "ubn",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "wdm_topo",
+               "description": "",
+               "spans": [
+                  {
+                     "source": "dw.cnx",
+                     "destination": "dw.phs"
+                  },
+                  {
+                     "source": "dw.bkk",
+                     "destination": "dw.nkr"
+                  },
+                  {
+                     "source": "dw.nkr",
+                     "destination": "dw.kkc"
+                  },
+                  {
+                     "source": "dw.nkr",
+                     "destination": "dw.ubn"
+                  },
+                  {
+                     "source": "dw.phs",
+                     "destination": "dw.pcb"
+                  },
+                  {
+                     "source": "dw.bkk",
+                     "destination": "dw.nks"
+                  },
+                  {
+                     "source": "dw.nks",
+                     "destination": "dw.phs"
+                  },
+                  {
+                     "source": "dw.pcb",
+                     "destination": "dw.kkc"
+                  },
+                  {
+                     "source": "dw.pcb",
+                     "destination": "dw.nks"
+                  },
+                  {
+                     "source": "dw.urt.cisco",
+                     "destination": "dw.chn.cisco"
+                  },
+                  {
+                     "source": "dw.chn.cisco",
+                     "destination": "dw.pkk.cisco"
+                  },
+                  {
+                     "source": "dw.bkk",
+                     "destination": "dw.pkk.cisco"
+                  },
+                  {
+                     "source": "dw.bkk",
+                     "destination": "dw.cnb"
+                  },
+                  {
+                     "source": "dw.kkc",
+                     "destination": "dw.ubn"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [
+            {
+               "name": "otn_topo",
+               "description": "Example OTN Topology",
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "o.phs",
+                     "destination": "o.bkk",
+                     "path_topologies": ["wdm_topo"]
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "o.kkc",
+                     "destination": "o.phs",
+                     "path_topologies": ["wdm_topo"]
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "o.bkk",
+                     "destination": "o.kkc",
+                     "path_topologies": ["wdm_topo"]
+                  }
+               ]
+            }
+         ],
+         "ipTopology": [
+            {
+               "name": "ip_topo",
+               "description": "",
+               "is_zr": false,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.phs",
+                     "destination": "er.bkk",
+                     "path_topologies": ["otn_topo"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.bkk",
+                     "destination": "er.kkc",
+                     "path_topologies": ["otn_topo"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.phs",
+                     "destination": "er.kkc",
+                     "path_topologies": ["otn_topo"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.cnx",
+                     "destination": "er.phs",
+                     "path_topologies": ["wdm_topo"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.bkk",
+                     "destination": "er.ubn",
+                     "path_topologies": ["wdm_topo"],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.ubn",
+                     "destination": "er.kkc",
+                     "path_topologies": ["wdm_topo"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.bkk",
+                     "destination": "er.bkk.zr",
+                     "path_topologies": [],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            },
+            {
+               "name": "zr_topo",
+               "description": "Example IP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.bkk.zr",
+                     "destination": "er.cnb.zr",
+                     "path_topologies": ["wdm_topo"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.bkk.zr",
+                     "destination": "er.urt.zr",
+                     "path_topologies": ["wdm_topo"],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "er.urt.zr",
+                     "destination": "er.pkt.zr",
+                     "path_topologies": [],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [
+            {
+               "name": "lsp_topo",
+               "description": "Example LSP Topology",
+               "full_meshed": true,
+               "path_topologies": ["ip_topo", "zr_topo"],
+               "bw_gbps": 1,
+               "lsps": []
+            }
+         ],
+         "serviceGroup": [
+            {
+               "name": "group_l3vpn_RSVP",
+               "description": null,
+               "rsvp_te": [],
+               "sr_policies": [],
+               "l3vpns": [
+                  {
+                     "name": "l3_cust_1",
+                     "customer_name": "test",
+                     "customer_details": "",
+                     "service_topology": "ANY_TO_ANY",
+                     "underlay_type": "RSVP_TE",
+                     "route_distinguisher": 65001,
+                     "route_target": 100,
+                     "endpoints": [
+                        {
+                           "device_name": "er.cnx",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 100,
+                           "ip_address": "10.1.11.1/24"
+                        },
+                        {
+                           "device_name": "er.bkk",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 200,
+                           "ip_address": "10.1.12.1/24"
+                        },
+                        {
+                           "device_name": "er.kkc",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 300,
+                           "ip_address": "10.1.13.1/24"
+                        },
+                        {
+                           "device_name": "er.urt.zr",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 400,
+                           "ip_address": "10.1.14.1/24"
+                        },
+                        {
+                           "device_name": "er.cnb.zr",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 500,
+                           "ip_address": "10.1.15.1/24"
+                        }
+                     ]
+                  },
+                  {
+                     "name": "l3_cust_2",
+                     "customer_name": "test2",
+                     "customer_details": "",
+                     "service_topology": "ANY_TO_ANY",
+                     "underlay_type": "RSVP_TE",
+                     "route_distinguisher": 65002,
+                     "route_target": 200,
+                     "endpoints": [
+                        {
+                           "device_name": "er.phs",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1001,
+                           "ip_address": "10.1.11.1/24"
+                        },
+                        {
+                           "device_name": "er.cnb.zr",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1002,
+                           "ip_address": "10.1.12.1/24"
+                        },
+                        {
+                           "device_name": "er.pkt.zr",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1003,
+                           "ip_address": "10.1.13.1/24"
+                        },
+                        {
+                           "device_name": "er.ubn",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1004,
+                           "ip_address": "10.1.14.1/24"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 0,
+            "num_days_to_generate_forward": 0,
+            "initial_lat": 14,
+            "initial_lng": 121,
+            "initial_zoom": 5,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "Philippines_Example (2.0.0)",
+         "sites": [
+            {
+               "name": "MNL",
+               "lat": 14.5995124,
+               "lng": 120.9842195,
+               "addr": null
+            },
+            {
+               "name": "MKT",
+               "lat": 14.55,
+               "lng": 121.03,
+               "addr": null
+            },
+            {
+               "name": "BAL",
+               "lat": 15.75833,
+               "lng": 121.5625,
+               "addr": null
+            },
+            {
+               "name": "BAG",
+               "lat": 16.4023332,
+               "lng": 120.5960071,
+               "addr": null
+            },
+            {
+               "name": "LAO",
+               "lat": 18.1978,
+               "lng": 120.5936,
+               "addr": null
+            },
+            {
+               "name": "VIG",
+               "lat": 17.57472,
+               "lng": 120.38694,
+               "addr": null
+            },
+            {
+               "name": "CAB",
+               "lat": 15.4908,
+               "lng": 120.9678,
+               "addr": null
+            },
+            {
+               "name": "LEG",
+               "lat": 13.13,
+               "lng": 123.73,
+               "addr": null
+            },
+            {
+               "name": "CAL",
+               "lat": 13.9575,
+               "lng": 122.2875,
+               "addr": null
+            },
+            {
+               "name": "CEB",
+               "lat": 10.293,
+               "lng": 123.902,
+               "addr": null
+            },
+            {
+               "name": "CAG",
+               "lat": 8.48,
+               "lng": 124.65,
+               "addr": null
+            },
+            {
+               "name": "DAV",
+               "lat": 7.07,
+               "lng": 125.6,
+               "addr": null
+            },
+            {
+               "name": "GEN",
+               "lat": 6.12,
+               "lng": 125.17,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "rdm.MNL",
+               "site": "MNL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.BAG",
+               "site": "BAG",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.BAL",
+               "site": "BAL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.VIG",
+               "site": "VIG",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.LAO",
+               "site": "LAO",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.CAB",
+               "site": "CAB",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.LEG",
+               "site": "LEG",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.CAL",
+               "site": "CAL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.CEB",
+               "site": "CEB",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.CAG",
+               "site": "CAG",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.DAV",
+               "site": "DAV",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "rdm.GEN",
+               "site": "GEN",
+               "vendor": "Ciena"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "zr.MNL",
+               "site": "MNL",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "zr.MKT",
+               "site": "MKT",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9904",
+               "is_core": true,
+               "is_zr": true
+            },
+            {
+               "name": "r.LAO",
+               "site": "LAO",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "r.BAG",
+               "site": "BAG",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "r.BAL",
+               "site": "BAL",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "r.MNL",
+               "site": "MNL",
+               "vendor": "Huawei",
+               "deviceType": "NE40E-X3",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "r.CEB",
+               "site": "CEB",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "r.DAV",
+               "site": "DAV",
+               "vendor": "Juniper",
+               "deviceType": "MX960",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "r.GEN",
+               "site": "GEN",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": false
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm",
+               "description": "",
+               "spans": [
+                  {
+                     "source": "rdm.LAO",
+                     "destination": "rdm.VIG"
+                  },
+                  {
+                     "source": "rdm.VIG",
+                     "destination": "rdm.BAG"
+                  },
+                  {
+                     "source": "rdm.BAG",
+                     "destination": "rdm.CAB"
+                  },
+                  {
+                     "source": "rdm.CAB",
+                     "destination": "rdm.BAL"
+                  },
+                  {
+                     "source": "rdm.BAL",
+                     "destination": "rdm.MNL"
+                  },
+                  {
+                     "source": "rdm.MNL",
+                     "destination": "rdm.CAL"
+                  },
+                  {
+                     "source": "rdm.CAL",
+                     "destination": "rdm.LEG"
+                  },
+                  {
+                     "source": "rdm.LEG",
+                     "destination": "rdm.CEB"
+                  },
+                  {
+                     "source": "rdm.CEB",
+                     "destination": "rdm.CAG"
+                  },
+                  {
+                     "source": "rdm.CAG",
+                     "destination": "rdm.DAV"
+                  },
+                  {
+                     "source": "rdm.DAV",
+                     "destination": "rdm.GEN"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_zrp",
+               "description": "ZRP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "zr.MKT",
+                     "destination": "zr.MNL",
+                     "path_topologies": [],
+                     "bw_gbps": 400,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            },
+            {
+               "name": "topo_ip",
+               "description": "IP Topology",
+               "is_zr": false,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.LAO",
+                     "destination": "r.BAG",
+                     "path_topologies": ["topo_wdm"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.BAG",
+                     "destination": "r.BAL",
+                     "path_topologies": ["topo_wdm"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.BAL",
+                     "destination": "r.MNL",
+                     "path_topologies": ["topo_wdm"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.MNL",
+                     "destination": "r.BAG",
+                     "path_topologies": ["topo_wdm"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.MNL",
+                     "destination": "zr.MNL",
+                     "path_topologies": [],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.MNL",
+                     "destination": "r.CEB",
+                     "path_topologies": ["topo_wdm"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.CEB",
+                     "destination": "r.DAV",
+                     "path_topologies": ["topo_wdm"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "r.DAV",
+                     "destination": "r.GEN",
+                     "path_topologies": ["topo_wdm"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [
+            {
+               "name": "topo_lsp",
+               "description": "Example LSP Topology",
+               "full_meshed": true,
+               "path_topologies": ["topo_ip", "topo_zrp"],
+               "bw_gbps": 10,
+               "lsps": []
+            }
+         ],
+         "serviceGroup": [
+            {
+               "name": "srv1_SR_Policies",
+               "description": "example sr policy",
+               "rsvp_te": [],
+               "sr_policies": [
+                  {
+                     "name": "SR Policy 1",
+                     "description": "",
+                     "full_meshed": false,
+                     "start_ep": "zr.MKT",
+                     "end_ep": "r.CEB",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["r.MNL"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24100,
+                     "color": 14100,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Test SRTE"
+                  },
+                  {
+                     "name": "SR Policy 2",
+                     "description": "",
+                     "full_meshed": false,
+                     "start_ep": "r.CEB",
+                     "end_ep": "zr.MKT",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["r.MNL"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24100,
+                     "color": 14100,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Test SRTE"
+                  }
+               ],
+               "l3vpns": []
+            },
+            {
+               "name": "srv2_L3VPN_over_SRTE",
+               "description": "example l3vpn with srte underlay",
+               "rsvp_te": [],
+               "sr_policies": [],
+               "l3vpns": [
+                  {
+                     "name": "ANY TO ANY L3VPN with SRTE underlay",
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Test L3 VPN any to any with SRTE underlay",
+                     "service_topology": "ANY_TO_ANY",
+                     "underlay_type": "SEGMENT_ROUTING",
+                     "route_distinguisher": 65001,
+                     "route_target": 100,
+                     "endpoints": [
+                        {
+                           "device_name": "zr.MKT",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1900,
+                           "ip_address": "10.1.10.1/24"
+                        },
+                        {
+                           "device_name": "r.CEB",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1900,
+                           "ip_address": "10.1.11.1/24"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

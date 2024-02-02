@@ -1,0 +1,2739 @@
+{
+   "name": "Basic Examples",
+   "layouts": [
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint1_ex1_no_otn_mesh",
+         "description": {
+            "headerSummary": "This initial basic example describes a simple traditional IPoDWDM infrastructure based on the Australian geography, with an auto-mesh of LSPs between the IP routers.",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_1/1-layout-topology.png",
+                  "description": "Reference topology used in this example."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_1/2-fully-meshed-LSP.png",
+                  "description": "The use case uses an auto-mesh of LSP between all the routers configured with \"Is Core\" option equal to false."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_1/3-fiber-example.png",
+                  "description": "Given a WDM topology, Topogen generates a realistic fibre path for each span. It achieves this by leveraging a Google API walk between the involved sites and adding an ILA every 120km that you can render selecting the Path tab for the optical path. Also selected an optical path (orange), HCO highlight every IP link using it."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_1/4-bundle.png",
+                  "description": "This reference example creates an IP bundle interface between Adelaide and Brisbane and renders makeup traffic on the bundle and each link, being aggregated."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_1/5-lsp-path.png",
+                  "description": "\r\nThe IP topology demonstrates how to add a constrain on the optical path computation to include in the path a WDM site that is not part of the short path. In this example, the IP link between Melbourne and Adelaide (used by the LSP overlay between these two sites) includes a constrain for the optical path to include in the computation Wagga Wagga that is not on the shorted optical path."
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Ciena"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_ciena",
+               "description": "Example WDM Topology",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_ip_cisco",
+               "description": "Example IP Topology",
+               "is_zr": false,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": ["SD1WAG01"],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 20,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [
+            {
+               "name": "topo_lsp",
+               "description": "Example LSP Topology",
+               "full_meshed": true,
+               "path_topologies": ["topo_ip_cisco"],
+               "bw_gbps": 1,
+               "lsps": []
+            }
+         ],
+         "serviceGroup": []
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint1_ex2_no_otn",
+         "description": {
+            "headerSummary": "This second MVP0 reference example builds on example 1 with a fully specified LSP topology. This use case still presents a traditional IPoDWDM infrastructure based on the Australian geography but it demonstrates how to template multiple LSP topologies, without leveraging the auto-mesh but instead adding LSP path constraints.",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_2/1-layout-topology.png",
+                  "description": "Reference topology used in this example."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_2/2-lsp-template.png",
+                  "description": "InFusion template supports the creation of multiple topologies for all types (WDM, OTN, IP and LSP). Like in this example specify the LSP Name, Description and Full Mesh just for the first LSP in the topology."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_2/3-lsp-definition.png",
+                  "description": "After importing the example, you can review each of the LSP topologies under the Layout / Topologies view."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_2/4-lsp-constrains-render.png",
+                  "description": "This scenario creates several LSP between the IP routers and in particular, the LSP between Adelaide and Brisbane, is forced to a longer IP path because of configured constrain to include the Sydney router in its path.\r\nImportant: Topogen will fail to compote a path if a constrain includes the source and destination sites."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_2/5-lsp-update.png",
+                  "description": "Remember that you can always update what that been imported using InFusion UI, regenerate the code and deploy the update (we suggest cleaning HCO database between deployments). InFusion UI will guide you on the option supported (i.e. suitable topologies, sites ...)."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_2/6-export-changes.png",
+                  "description": "Finally, if you have done UI changes that you want to save or share, check InFusion export facility. Click on the three dots on the right of the use case name on the left pane, select Export and choose a suitable file name for the XSL template. This file can be re-imported using the + on the right of an InFusion project name."
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Ciena"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_ciena",
+               "description": "Example WDM Topology_1",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_ip_cisco",
+               "description": "Example IP Topology",
+               "is_zr": false,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 20,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_ciena"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [
+            {
+               "name": "topo_lsp_1",
+               "description": "First example partial meshed LSP topology",
+               "full_meshed": false,
+               "path_topologies": ["topo_ip_cisco"],
+               "bw_gbps": 1,
+               "lsps": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_ip_cisco"],
+                     "bw_gbps": 1
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_ip_cisco"],
+                     "bw_gbps": 2
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_ip_cisco"],
+                     "bw_gbps": 1
+                  }
+               ]
+            },
+            {
+               "name": "topo_lsp_2",
+               "description": "Second example partial meshed LSP topology",
+               "full_meshed": false,
+               "path_topologies": ["topo_ip_cisco"],
+               "bw_gbps": 2,
+               "lsps": [
+                  {
+                     "constraints": {
+                        "includes": ["CR1.SYD"],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_ip_cisco"],
+                     "bw_gbps": 2
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_ip_cisco"],
+                     "bw_gbps": 1
+                  }
+               ]
+            }
+         ],
+         "serviceGroup": []
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint1_ex3_otn_mesh",
+         "description": {
+            "headerSummary": "This third MVP0 reference example reuses the basic Australian geography topology but instead of an IPoDWDM use case, it demonstrates how to generate an IP topology over an OTN underlay, transported over WDM. In terms of LSP, this scenario still leverages the auto-mesh of LSPs. \r\nThe IP topology has been configured to leverage the underlay OTN topology.",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_3/1-layout-topology.png",
+                  "description": "Reference topology used in this example."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_3/2-ip-over-OTN.png",
+                  "description": "The IP topology has been configured to leverate the underlay OTN topology."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_3/3-fully-meshed-LSP.png",
+                  "description": "The use case is still using a auto-mesh of LSP between all the routers configured with \"Is Core\" option equal to false."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_3/4-IGP-used-by.png",
+                  "description": "Selecting an IP link (like in this case between Melbourne and Sydney), we can get the list of LSPs traversing this link by selecting \"Used By\""
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_3/5-LSP-path.png",
+                  "description": "Finally chosen an LSP, we can validate that the IP links computed for its path are transported by the OTN layers before using the DWM infrastructure."
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Ciena"
+            }
+         ],
+         "otnDevices": [
+            {
+               "name": "OTN1MEL01",
+               "site": "MEL",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "OTN1SYD01",
+               "site": "SYD",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "OTN1BRI01",
+               "site": "BRI",
+               "vendor": "Ciena"
+            },
+            {
+               "name": "OTN1ADE01",
+               "site": "ADE",
+               "vendor": "Ciena"
+            }
+         ],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": false
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_ciena",
+               "description": "Example WDM Topology",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [
+            {
+               "name": "topo_otn",
+               "description": "Example OTN Topology_1",
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "OTN1MEL01",
+                     "destination": "OTN1SYD01",
+                     "path_topologies": ["topo_wdm_ciena"]
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "OTN1MEL01",
+                     "destination": "OTN1ADE01",
+                     "path_topologies": ["topo_wdm_ciena"]
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "OTN1SYD01",
+                     "destination": "OTN1BRI01",
+                     "path_topologies": ["topo_wdm_ciena"]
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "OTN1ADE01",
+                     "destination": "OTN1BRI01",
+                     "path_topologies": ["topo_wdm_ciena"]
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "OTN1SYD01",
+                     "destination": "OTN1ADE01",
+                     "path_topologies": ["topo_wdm_ciena"]
+                  }
+               ]
+            }
+         ],
+         "ipTopology": [
+            {
+               "name": "topo_ip_cisco",
+               "description": "Example IP Topology",
+               "is_zr": false,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_otn"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_otn"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_otn"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_otn"],
+                     "bw_gbps": 20,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_otn"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [
+            {
+               "name": "topo_lsp",
+               "description": "Example LSP Topology",
+               "full_meshed": true,
+               "path_topologies": ["topo_ip_cisco"],
+               "bw_gbps": 1,
+               "lsps": []
+            }
+         ],
+         "serviceGroup": []
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint3_ex4_ZRP",
+         "description": {
+            "headerSummary": "This fourth MVP0 reference example reuses the basic Australian geography topology, and instead of an IPoDWDM use case, it explores Topogen support for modelling RON architecture leveraging ZR+ optics.",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_4/1-layout-topology.png",
+                  "description": "Reference topology used in this example."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_4/2-ZRP-topologies.png",
+                  "description": "As in the previous examples, we are building this use case starting from a WDM topology however instead of mapping the ZRP topology (that in this scenario substitute the legacy IP topology). Note that with HCO/Topogen 5.3.2 we don't need anymore the ONC topology and the IP topology refers to the underlay WDM topology."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_4/3-ZRP-modelling.png",
+                  "description": "Topogen supports the correct modelling of ZR+ use cases and autogeneration of appropriate router's interface types and coherent DSPs.\r\nThis example doesn't include LSP topologies however you just need to follow what has been introduced in the previous scenarios and for example, request a full mesh of LSP between the routers or follow the next example that introduces the concepts of SR policies services, leveraging the ZR+ topology as the underlay."
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Cisco"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_cisco",
+               "description": "Example WDM Topology",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_ZR_cisco",
+               "description": "Example IP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 20,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [],
+         "serviceGroup": []
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint3_ex_5_ZRP_SR_policies",
+         "description": {
+            "headerSummary": "This fifth MVP0 reference example is built on the basic RON architecture on the Australian geography topology, adding SR Policies constructs as Topogen services. This example introduces the modelling of Topogen services, created by a second Topogen script running in MODIFY mode, after instantiating the topology in CREATE mode (used for the earlier examples in this MVP0 series).",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/1-layout-topology.png",
+                  "description": "Reference topology used in this example."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/2-new-sr-services.png",
+                  "description": "Import SR policies configured under the SR_policies template tab or use InFusion UI Services view to UI to view, add or update SR policies. Note that policies grouped in the same \"Service Group\" get created together by the same Topogen script."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/3-transport.png",
+                  "description": "This scenario requires a  is a two steps Topogen execution. First, run the Transport intent scrip (autogenerated by InFsion by default when selecting Simulation). This step creates the network elements and topologies, as described in the previous examples in this series, running Topogen in CREATE mode."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/4-services.png",
+                  "description": "The second step requires the selection of a service name in the Intent dropbox. As you perform this action, InFusion presents the service description and autogenerate the appropriate Topogen script that gets executed in MODIFY mode. After running this script and presenting the use case, you can clear the service from HCO database using \"Clear All Services\" in the Input tab and run a separate service group, or execute a different service group to add policies to the initial one."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/5-link-used-by.png",
+                  "description": "The HCO 5.1 version used in this example doesn't report the SR Policies that are originated from a router under the router's connections. If you select a logical IP link, access its IGP (selecting from 'Used By\") and ask again on the IGP \"Used By\", you get the list of SR Policies segments that are traversing the link. Selecting from this list a segment, \"Used By\" will return the SR policy, the segment belongs."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/6-SR-policies-inventory.png",
+                  "description": "Alternatively, we can access the SR Policy list from the HCO Network Inventory application."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/7-SR-policy-highlight.png",
+                  "description": "Access an SR Policy thumbnail view of the service by clicking on the arrow on the side of a policy name in the Network Inventory."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_5/8-SR-path.png",
+                  "description": "Access the actual SR Policy by clicking on the little square with an arrow inside, on the right of a policy name in the Network Inventory. From the Policy summary view, if you click on the arrow \"Locate Item\" on the right of the little star, HCO will take you to the policy path location and highlight the path. Also, you can choose Path to visualise the multi-layer view of the service. Note that the SR Policy path will render one of multiple SR Segments based on zero or multiple constraints configured for the policy (including the node labels allocated by Topogen)."
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Cisco"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_cisco",
+               "description": "Example WDM Topology",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_ZR_cisco",
+               "description": "Example IP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 20,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [],
+         "serviceGroup": [
+            {
+               "name": "srv1_SR_Policies",
+               "description": "Basic policy creation between Melbourne and Brisbane, with protection path including Sydney",
+               "sr_policies": [
+                  {
+                     "name": "SR Policy 1",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.MEL",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24101,
+                     "color": 10101,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 1 - reverse",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.MEL",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25101,
+                     "color": 11101,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2",
+                     "description": "Min IGP path policy with a node constrain",
+                     "full_meshed": false,
+                     "start_ep": "CR1.MEL",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24102,
+                     "color": 10102,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2 - reverse",
+                     "description": "Min IGP path policy with a node constrain",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.MEL",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25102,
+                     "color": 11102,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  }
+               ],
+               "rsvp_te": [],
+               "l3vpns": []
+            },
+            {
+               "name": "srv2_SR_Policies",
+               "description": "Policy creation between Brisbane and Adelaide validating a list of path constrains",
+               "sr_policies": [
+                  {
+                     "name": "SR Policy 3",
+                     "description": "Min IGP path policy with multiple node constrains",
+                     "full_meshed": false,
+                     "start_ep": "CR1.ADE",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.MEL", "CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24103,
+                     "color": 10103,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 3 - reverse",
+                     "description": "Min IGP path policy with multiple node constrains",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.ADE",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD", "CR1.MEL"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25103,
+                     "color": 11103,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  }
+               ],
+               "rsvp_te": [],
+               "l3vpns": []
+            }
+         ]
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint3_ex_6_usecase_preview",
+         "description": {
+            "headerSummary": "This example doesn’t add elements, topologies or services to the “Example 5 – ZRP and SR policies” but it introduces the concept of use case description and highlights, that we can use as inline documentation.",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_6/1-description.png",
+                  "description": " InFusion template version 0.3.2, adds support for descriptions.\r\nAssure the image links are full links and Excel didn’t update the format to an hyperlink (missing the extension). We were using https://postimages.org to host the images but Cisco IT blocked the download and we are currently saving the picture on a support GIT repository."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_6/2-empty-description.png",
+                  "description": "Starting a new UI project or import an empty description, you are presented with empty descriptionthat you can modify, using the Edit button."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_6/3-new-highlight.png",
+                  "description": "Fill with a description and direct link to an image. The ADT team will create a facility to manage your images but you may start using something link https://postimages.org."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_6/5-highlight.png",
+                  "description": "Click on an image to maximise and read the full description."
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Cisco"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_cisco",
+               "description": "Example WDM Topology",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_ZR_cisco",
+               "description": "Example IP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 20,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 10,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [],
+         "serviceGroup": [
+            {
+               "name": "srv1_SR_Policies",
+               "description": "Something",
+               "sr_policies": [
+                  {
+                     "name": "SR Policy 1",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.MEL",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24101,
+                     "color": 10101,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 1 - reverse",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.MEL",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25101,
+                     "color": 11101,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2",
+                     "description": "Min IGP path policy with a node constrain",
+                     "full_meshed": false,
+                     "start_ep": "CR1.MEL",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24102,
+                     "color": 10102,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2 - reverse",
+                     "description": "Min IGP path policy with a node constrain",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.MEL",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25102,
+                     "color": 11102,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  }
+               ],
+               "rsvp_te": [],
+               "l3vpns": []
+            },
+            {
+               "name": "srv2_SR_Policies",
+               "description": null,
+               "sr_policies": [
+                  {
+                     "name": "SR Policy 3",
+                     "description": "Min IGP path policy with multiple node constrains",
+                     "full_meshed": false,
+                     "start_ep": "CR1.ADE",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.MEL", "CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24103,
+                     "color": 10103,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 3 - reverse",
+                     "description": "Min IGP path policy with multiple node constrains",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.ADE",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD", "CR1.MEL"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 25103,
+                     "color": 11103,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  }
+               ],
+               "rsvp_te": [],
+               "l3vpns": []
+            }
+         ]
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint5_ex_7_l3vpn_multiple_services",
+         "description": {
+            "headerSummary": "This example introduces the L3VPN services using as underlay RSVP_TE or SR policies.\n\nStep 1: As familiarized in the previous examples, you start executing the Transport intent to generate the optical and IP layers.\n\nStep 2: Create a first any to any L3VPN between Melbourne, Adelaide and Sydney sites over RSVP_TE LSPs. To perform this step, you need to execute the srv1_L3VPN_over_RSVP_TE intent. Starting from InFusion 3.0, you can create RSVP_TE as a service instead of creating an LSP transport layer, and they support protection. You can choose to create multiple services in a service group, mixing RSVP_TE, SRTE policies and L3VPN services. \n\nStep 3: Create a second hub and spokes L3VPN over SRTE LSPs between Brisbane, Melbourne and Adelaide sites. This task demonstrates the option to package one or more SR policies and the L3VPN definition in the same service group. To perform this step, you need to execute the srv2_L3VPN_over_SRTE intent.",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_7/8-Service-Assurance.png",
+                  "description": "Final use case outcome in HCO's Service Assurance application"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_7/2-L3-VPN-template.png",
+                  "description": "New L3VPN_Service section in Template version 0.5.2 that supports Any_to_Any and Hub_And_Spoke L3VPN over RSVP_TE and SRTE policies"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_7/3-L3-VPN-VPN-over-RSVPTE.png",
+                  "description": "L3VPN using RSVP_TE underlay relies on legacy Topogen RSVP_TE LSP created by the transport intent. As you can see, there are no policies in this intent, only the L3VPN definition. Check Topologies / Topo_RSVP instead for RSVP_TE LSP definition."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_7/4-SRTE-AND-L3-VPN.png",
+                  "description": "An L3VPN using SRTE policies as underlay requires their creation in the same service intent (like in this case) or a previous service (with the SRTE) deployed on HCO."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_7/5-Step-by-step-intent.png",
+                  "description": "This example shows how to structure a demo using multiple steps that you run as you progress in the story. Alternatively, check example 8 for a single service creating all SRTE policies and L3VPN."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_7/7-Topogen-L3-VPN-code.png",
+                  "description": "InFusion autogenerated L3VPN Topogen code. Please customise the code inline if you need some change or a feature not supported and execute the updated script."
+               },
+               {
+                  "link": "https://wwwin-github.cisco.com/raw/APJ-GSP-ADT/supportImages/master/Example_7/5-HCO-setting-for-L3-VPN.png",
+                  "description": "HCO requires some particular setting to support L3VPN over SRTE policies. Infusion pushes these settings in the same intent script. "
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Example_7/1-explore-SR-path-from-VPN.png",
+                  "description": "Completed Step 2, you are all set to explore how to traverse from an L3VPN to the underlay SRTE policies, IP links and optical paths."
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Cisco"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_cisco",
+               "description": "Example WDM Topology",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_ZR_cisco",
+               "description": "Example IP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [],
+         "serviceGroup": [
+            {
+               "name": "srv2_L3VPN_over_SRTE",
+               "description": "Create SR policies and hub and spoke L3VPN services  between Brisbane, Melbourne and Adelaide and  sites.",
+               "sr_policies": [
+                  {
+                     "name": "SR Policy 1 BRI to MEL",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.MEL",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24101,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 1 MEL to BRI",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.MEL",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24101,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2 BRI to ADE",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.ADE",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24102,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2 ADE to BRI",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.ADE",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24102,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  }
+               ],
+               "l3vpns": [
+                  {
+                     "name": "HUB and Spoke L3VPN with SRTE underlay",
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC",
+                     "service_topology": "HUB_AND_SPOKE",
+                     "underlay_type": "SEGMENT_ROUTING",
+                     "route_distinguisher": 65002,
+                     "route_target": 66002,
+                     "route_target_spoke": 67002,
+                     "endpoints": [
+                        {
+                           "device_name": "CR1.BRI",
+                           "role": "HUB",
+                           "vlan_id": 1010,
+                           "ip_address": "10.10.10.1/24"
+                        },
+                        {
+                           "device_name": "CR1.MEL",
+                           "role": "SPOKE",
+                           "vlan_id": 1020,
+                           "ip_address": "10.10.20.1/24"
+                        },
+                        {
+                           "device_name": "CR1.ADE",
+                           "role": "SPOKE",
+                           "vlan_id": 1030,
+                           "ip_address": "10.10.30.1/24"
+                        }
+                     ]
+                  }
+               ],
+               "rsvp_te": []
+            },
+            {
+               "name": "srv1_L3VPN_over_RSVP_TE",
+               "description": "Create an And to Any L3VPN between Melbourne, Adelaide and Sydney sites using the RSVP_TE LSP as the underlay. ",
+               "rsvp_te": [
+                  {
+                     "name": "RSVP_TE",
+                     "description": "",
+                     "full_meshed": true,
+                     "bandwidth_reservation_mbps": 10,
+                     "setup_priority": 7,
+                     "holding_priority": 3,
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "customer_name": "",
+                     "customer_details": ""
+                  }
+               ],
+               "sr_policies": [],
+               "l3vpns": [
+                  {
+                     "name": "L3VPN with RSVP_TE underlay",
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC",
+                     "service_topology": "ANY_TO_ANY",
+                     "underlay_type": "RSVP_TE",
+                     "route_distinguisher": 66001,
+                     "route_target": 66001,
+                     "endpoints": [
+                        {
+                           "device_name": "CR1.MEL",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1010,
+                           "ip_address": "10.10.10.1/24"
+                        },
+                        {
+                           "device_name": "CR1.SYD",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1020,
+                           "ip_address": "10.10.20.1/24"
+                        },
+                        {
+                           "device_name": "CR1.ADE",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1030,
+                           "ip_address": "10.10.30.1/24"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "settings": {
+            "num_days_to_generate_back": 1,
+            "num_days_to_generate_forward": 1,
+            "initial_lat": -32,
+            "initial_lng": 146,
+            "initial_zoom": null,
+            "max_zoom": 20,
+            "min_zoom": 4,
+            "enable_otn": false
+         },
+         "name": "sprint5_ex_8_l3vpn_all_in_one_service",
+         "description": {
+            "headerSummary": "This example reformats Example 7, creating the same RSVP_TE, SRTE policies and L3VPN in a single service group.\n\nStep 1: As familiarized in the previous examples, you will need initially to execute the Transport intent to generate the optical and IP layers.\n\nStep 2: Create in a single step a mesh of RSVP_TE,  SRTE policies, a hub and spoke L3VPN that leverage the SRTE policies as underlay between Brisbane, Melbourne and Adelaide sites, and a second L3VPN any to any between Melbourne, Adelaide and Sydney’s sites leveraging as underlay the RSVP_TE LSP.\nTo perform this step, you need to execute the srv1_all_services intent.",
+            "images": [
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Exmaple_8/1-Service-Assurance.png",
+                  "description": "Final use case outcome in HCO's Service Assurance application"
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Exmaple_8/2-Template-single-service.png",
+                  "description": "We use a common Service Group name across the template tab to group separate services types in a common intent."
+               },
+               {
+                  "link": "https://raw.githubusercontent.com/adt-apjc/infusionSupport/main/Exmaple_8/3-Single-Service-UI.png",
+                  "description": "Single Service Group UI view"
+               }
+            ]
+         },
+         "sites": [
+            {
+               "name": "MEL",
+               "lat": -37.81377,
+               "lng": 144.96236,
+               "addr": null
+            },
+            {
+               "name": "SYD",
+               "lat": -33.8688197,
+               "lng": 151.2092955,
+               "addr": "Sydney"
+            },
+            {
+               "name": "BRI",
+               "lat": -27.4704528,
+               "lng": 153.0260341,
+               "addr": "Brisbane"
+            },
+            {
+               "name": "ADE",
+               "lat": -34.92853,
+               "lng": 138.60167,
+               "addr": null
+            },
+            {
+               "name": "WAG",
+               "lat": -35.09818,
+               "lng": 147.35377,
+               "addr": null
+            }
+         ],
+         "roadms": [
+            {
+               "name": "SD1MEL01",
+               "site": "MEL",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1SYD01",
+               "site": "SYD",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1BRI01",
+               "site": "BRI",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1ADE01",
+               "site": "ADE",
+               "vendor": "Cisco"
+            },
+            {
+               "name": "SD1WAG01",
+               "site": "WAG",
+               "vendor": "Cisco"
+            }
+         ],
+         "otnDevices": [],
+         "routers": [
+            {
+               "name": "CR1.MEL",
+               "site": "MEL",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.SYD",
+               "site": "SYD",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.BRI",
+               "site": "BRI",
+               "vendor": "Cisco",
+               "deviceType": "ASR 9010",
+               "is_core": false,
+               "is_zr": true
+            },
+            {
+               "name": "CR1.ADE",
+               "site": "ADE",
+               "vendor": "Cisco",
+               "deviceType": "",
+               "is_core": false,
+               "is_zr": true
+            }
+         ],
+         "wdmTopology": [
+            {
+               "name": "topo_wdm_cisco",
+               "description": "Example WDM Topology",
+               "spans": [
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1SYD01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1ADE01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1BRI01"
+                  },
+                  {
+                     "source": "SD1MEL01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1SYD01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1BRI01",
+                     "destination": "SD1WAG01"
+                  },
+                  {
+                     "source": "SD1ADE01",
+                     "destination": "SD1WAG01"
+                  }
+               ]
+            }
+         ],
+         "otnTopology": [],
+         "ipTopology": [
+            {
+               "name": "topo_ZR_cisco",
+               "description": "Example IP Topology",
+               "is_zr": true,
+               "services": [
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.SYD",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.MEL",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.ADE",
+                     "destination": "CR1.BRI",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 200,
+                     "is_lag": true,
+                     "num_of_underlying_paths": 2,
+                     "underlying_path_bw_gbps": 100
+                  },
+                  {
+                     "constraints": {
+                        "includes": [],
+                        "excludes": []
+                     },
+                     "source": "CR1.SYD",
+                     "destination": "CR1.ADE",
+                     "path_topologies": ["topo_wdm_cisco"],
+                     "bw_gbps": 100,
+                     "is_lag": false,
+                     "num_of_underlying_paths": 1,
+                     "underlying_path_bw_gbps": 10
+                  }
+               ]
+            }
+         ],
+         "lspTopology": [],
+         "serviceGroup": [
+            {
+               "name": "srv1_all_services",
+               "description": "Validating the creation of SR policies and different types of L3VPN in the same service group.",
+               "rsvp_te": [
+                  {
+                     "name": "RSVP_TE",
+                     "description": "",
+                     "full_meshed": true,
+                     "bandwidth_reservation_mbps": 10,
+                     "setup_priority": 7,
+                     "holding_priority": 3,
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "customer_name": "",
+                     "customer_details": ""
+                  }
+               ],
+               "sr_policies": [
+                  {
+                     "name": "SR Policy 1 BRI to MEL",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.MEL",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24101,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 1 MEL to BRI",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.MEL",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": ["CR1.SYD"],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24101,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2 BRI to ADE",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.BRI",
+                     "end_ep": "CR1.ADE",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24102,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  },
+                  {
+                     "name": "SR Policy 2 ADE to BRI",
+                     "description": "Min IGP path policy",
+                     "full_meshed": false,
+                     "start_ep": "CR1.ADE",
+                     "end_ep": "CR1.BRI",
+                     "min_criteria_metric": "IGP",
+                     "include_nodes": [],
+                     "exclude_nodes": [],
+                     "isProtected": false,
+                     "protect_min_criteria_metric": "IGP",
+                     "protect_include_nodes": [],
+                     "protect_exclude_nodes": [],
+                     "binding_sid": 24102,
+                     "color": 10000,
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC"
+                  }
+               ],
+               "l3vpns": [
+                  {
+                     "name": "L3VPN with RSVP_TE underlay",
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC",
+                     "service_topology": "ANY_TO_ANY",
+                     "underlay_type": "RSVP_TE",
+                     "endpoints": [
+                        {
+                           "device_name": "CR1.MEL",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": null,
+                           "ip_address": "10.10.10.1/24"
+                        },
+                        {
+                           "device_name": "CR1.SYD",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": null,
+                           "ip_address": "10.10.20.1/24"
+                        },
+                        {
+                           "device_name": "CR1.ADE",
+                           "role": "ANY_TO_ANY",
+                           "vlan_id": 1030,
+                           "ip_address": "10.10.30.1/24"
+                        }
+                     ]
+                  },
+                  {
+                     "name": "HUB and Spoke L3VPN with SRTE underlay",
+                     "customer_name": "ADT Ltd.",
+                     "customer_details": "Agile Development Team - APJC",
+                     "service_topology": "HUB_AND_SPOKE",
+                     "underlay_type": "SEGMENT_ROUTING",
+                     "route_distinguisher": 65002,
+                     "route_target": 66002,
+                     "route_target_spoke": 67002,
+                     "endpoints": [
+                        {
+                           "device_name": "CR1.BRI",
+                           "role": "HUB",
+                           "vlan_id": 1010,
+                           "ip_address": "10.10.10.1/24"
+                        },
+                        {
+                           "device_name": "CR1.MEL",
+                           "role": "SPOKE",
+                           "vlan_id": 1020,
+                           "ip_address": "10.10.20.1/24"
+                        },
+                        {
+                           "device_name": "CR1.ADE",
+                           "role": "SPOKE",
+                           "vlan_id": 1030,
+                           "ip_address": "10.10.30.1/24"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}
