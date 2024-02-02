@@ -1,14 +1,39 @@
 [
    {
-      "name": "ANZ Lab (3.0.0)",
+      "name": "apjcExamples",
       "version": "1.0.0",
       "objective": "",
-      "description": "",
+      "description": "Includes models for ANZ (lab 3.0), Thailand and Philippines",
       "useCases": "",
       "requirements": "",
       "labels": [
          "HCO 7.x"
       ],
-      "path": "https://wwwin-github.cisco.com/raw/APJ-GSP-ADT/YAP-Zoo/master/cnc6.0/cnc6.0_lifecycle_demo.json"
+      "path": "https://raw.githubusercontent.com/adt-apjc/InFusionCatalogs/main/Examples/apjcExamples.json"
+   },
+   {
+      "name": "Basic Examples",
+      "version": "1.0.0",
+      "objective": "",
+      "description": "Step by step examples for basic InFusion projects",
+      "useCases": "",
+      "requirements": "",
+      "labels": [
+         "HCO 7.x",
+         "HCO 5.x"
+      ],
+      "path": "https://raw.githubusercontent.com/adt-apjc/InFusionCatalogs/main/Examples/basicProjectExamples.json"
+   },
+   {
+      "name": "ANZ Lab (3.0.0) Sandbox",
+      "version": "1.0.0",
+      "objective": "",
+      "description": "Load ANZ Lab (3.0.0) in the InFusion's sandbox as a code, instead of a an InFusion's project",
+      "useCases": "",
+      "requirements": "",
+      "labels": [
+         "HCO 7.x"
+      ],
+      "path": "https://raw.githubusercontent.com/adt-apjc/InFusionCatalogs/main/Examples/anzLabSandbox.json"
    }
 ]
