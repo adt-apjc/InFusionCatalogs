@@ -1,6 +1,6 @@
 [
    {
-      "name": "APJC Examples",
+      "name": "Import APJC Project Examples",
       "version": "1.0.0",
       "objective": "",
       "description": "Includes models for ANZ (lab 3.0), Thailand and Philippines",
@@ -12,7 +12,7 @@
       "path": "https://raw.githubusercontent.com/adt-apjc/InFusionCatalogs/main/Examples/apjcExamples.json"
    },
    {
-      "name": "Basic Examples",
+      "name": "Import Basic Project Examples",
       "version": "1.0.0",
       "objective": "",
       "description": "Step by step examples for basic InFusion projects",
@@ -25,7 +25,7 @@
       "path": "https://raw.githubusercontent.com/adt-apjc/InFusionCatalogs/main/Examples/basicProjectExamples.json"
    },
    {
-      "name": "ANZ Lab (3.0.0) Sandbox",
+      "name": "Import ANZ Lab (3.0.0) Sandbox",
       "version": "1.0.0",
       "objective": "",
       "description": "Load ANZ Lab (3.0.0) in the InFusion's sandbox as a code, instead of a an InFusion's project",
